@@ -62,7 +62,7 @@ document.getElementById("audioElement").src="audio/"+s;
 }
 
 ///////////////生成json设置函数///////////////////
-makejson("17.mp3",770,50,"green")
+makejson("18.mp3",450,90,"green")
 ///////////////////////////////////////////////
 
 function startplay(){
@@ -140,9 +140,9 @@ if(p1==0){
     }
 
     else{
-      var r = (AverageVolume(frequencyData)/3)/4
+      var r = (AverageVolume(frequencyData)/3)/3
       var cx = p1;
-      var cy = (svgHeight - AverageFrequency(frequencyData)/1.5/6);
+      var cy = (svgHeight - AverageFrequency(frequencyData)/1.5/3);
       var fill = colorScale(AverageVolume(frequencyData)*12);
       var circle = svg.append('circle')
       .attr('r', function() { return  r;})

@@ -18,10 +18,10 @@ svg {
 .operation {
 	display: flex;
 	align-items: center;
-	width: 600px;
+	width: 835px;
 	height: 60px;
 	font-size: 0;
-	justify-content: center;
+	/*justify-content: center;*/
 }
 #op_date span {
 	display: inline-block;
@@ -29,11 +29,13 @@ svg {
 	font-size: 14px;
 	height: 20px;
 	line-height: 20px;
-	border: 1px solid #929292;
+	/*border: 1px solid #929292;*/
 	cursor: pointer;
+	font-weight:normal;
 }
 #op_date .active {
-	background: #929292;
+	/*background: #929292;*/
+	font-weight:bold;
 }
 #op_color span {
 	display: inline-block;
@@ -50,33 +52,53 @@ svg {
 .pink {
 	background: rgb(137,0,102);
 	color: #fff;
-	opacity: .3
+	opacity: .3;
+	border:rgb(37, 37, 37) solid 2px;
 }
 .orange {
 	background: rgb(196,121,0);
 	color: #fff;
-	opacity: .3
+	opacity: .3;
+	border:rgb(37, 37, 37) solid 2px;
 }
 .green {
 	background: rgb(0,117,25);
 	color: #fff;
-	opacity: .3
+	opacity: .3;
+	border:rgb(37, 37, 37) solid 2px;
 }
 #op_color .active2 {
 	opacity: .6;
 }
+#op_color{
+	margin-left: 50px;
+}
+#op_date{
+	margin-left: 300px;
+}
+
 </style>
 </head>
 <body>
 <div class="operation">
-  <div style="margin-right:50px;" id="op_date"> <span class="active" data-value="1">6/15/19</span> <span class="active" data-value="2">6/30/19</span> <span class="active" data-value="3">8/12/19</span> </div>
-  <div id="op_color"> <span class="pink active2" data-value="pink"></span> <span class="orange active2" data-value="orange"></span> <span class="green active2" data-value="green"></span> </div>
+
+     <div id="op_color"> 
+	  <span class="pink active2" data-value="pink"></span>
+	  <span class="orange active2" data-value="orange"></span> 
+	  <span class="green active2" data-value="green"></span>
+	 </div>
+
+	 <div id="op_date"> 
+		<span class="active" data-value="1">6/15/19</span> 
+		<span class="active" data-value="2">6/30/19</span> 
+		<span class="active" data-value="3">8/12/19</span>
+    </div>
 </div>
 
 <div id="divall" style="margin:0 auto; position:absolute;">
 
-<div id="bodyright" style="border:#ccc 0px solid; position:absolute; width:830px; height:640px; left:835px; box-shadow: #999 0px 0px 20px 5px; "></div>
-<div id="bodyleft" style="position:absolute;width:950px; height:1317px;"></div>
+<div id="bodyright" style="border:#ccc 0px solid; position:absolute; width:800px; height:940px; left:810px; box-shadow: #999 0px 0px 20px 5px; "></div>
+<div id="bodyleft" style="position:absolute;width:835px;"></div>
 </div>
 
 <audio id="audioElement" src="audio/02.mp3" type="audio/wav"></audio>
@@ -260,9 +282,9 @@ if(p1==0){
     }
 
     else{
-      var r = AverageVolume(frequencyData)/3/4
+      var r = AverageVolume(frequencyData)/3/3
       var cx = p1;
-      var cy = svgHeight - AverageFrequency(frequencyData)/1.5/6;
+      var cy = svgHeight - AverageFrequency(frequencyData)/1.5/3;
       var fill = colorScale(AverageVolume(frequencyData)*12);
       var circle = svg.append('circle')
       .attr('r', function() { return  r;})
@@ -280,7 +302,7 @@ if(p1==0){
     strokeDictionary.push(dict);	
     makePoints(p1+1, p2+1);
     }
-  }, 6);
+  }, 7);
 }
 
 function goto1(){
