@@ -19,7 +19,7 @@ svg {
 	display: flex;
 	align-items: center;
 	width: 835px;
-	height: 60px;
+	height: 20px;
 	font-size: 0;
 	/*justify-content: center;*/
 }
@@ -76,29 +76,60 @@ svg {
 #op_date{
 	margin-left: 300px;
 }
+#date1{
+    background-color:#fff;
+	width:150px; 
+	height:150px;
+	margin-bottom:10px; 
+	border:1px solid #666;
+	background-image:url(image/1.png);
+}
+#date2{
+    background-color:#fff;
+	width:150px; 
+	height:150px;
+	margin-bottom:10px; 
+	border:1px solid #666;
+	background-image:url(image/2.png);
+}
+#date3{
+	background-color:#fff;
+	width:150px; 
+	height:150px;
+	margin-bottom:10px; 
+	border:1px solid #666;
+	background-image:url(image/3.png);
+}
 
 </style>
 </head>
 <body>
+
 <div class="operation">
 
-     <div id="op_color"> 
+     <div id="op_color" style="display:none"> 
 	  <span class="pink active2" data-value="pink"></span>
 	  <span class="orange active2" data-value="orange"></span> 
 	  <span class="green active2" data-value="green"></span>
 	 </div>
 
-	 <div id="op_date"> 
+	 <div id="op_date" style="display:none"> 
 		<span class="active" data-value="1">6/15/19</span> 
 		<span class="active" data-value="2">6/30/19</span> 
 		<span class="active" data-value="3">8/12/19</span>
     </div>
 </div>
 
-<div id="divall" style="margin:0 auto; position:absolute;">
+<div id="divall" style="margin:0 auto; position:absolute;left:160px;">
 
-<div id="bodyright" style="border:#ccc 0px solid; position:absolute; width:800px; height:940px; left:810px; box-shadow: #999 0px 0px 20px 5px; "></div>
-<div id="bodyleft" style="position:absolute;width:835px;"></div>
+<div id="bodyright" style="border:#ccc 0px solid; position:absolute; width:800px; height:2050px; left:850px; box-shadow: #999 0px 0px 20px 5px; "></div>
+<div id="bodyleft" style="position:absolute;width:835px; height:940px;"></div>
+</div>
+
+<div style="position:fixed; margin:10px 10px;top:0px; z-index:100px;">
+<div style="" id="date1"></div>
+<div style="" id="date2"></div>
+<div style="" id="date3"></div>
 </div>
 
 <audio id="audioElement" src="audio/02.mp3" type="audio/wav"></audio>
@@ -282,9 +313,9 @@ if(p1==0){
     }
 
     else{
-      var r = AverageVolume(frequencyData)/3/3
+      var r = AverageVolume(frequencyData)/3/2
       var cx = p1;
-      var cy = svgHeight - AverageFrequency(frequencyData)/1.5/3;
+      var cy = svgHeight - AverageFrequency(frequencyData)/1.5/1;
       var fill = colorScale(AverageVolume(frequencyData)*12);
       var circle = svg.append('circle')
       .attr('r', function() { return  r;})
@@ -526,6 +557,48 @@ soundAll.push(sound18);
 
 
 <script>
+document.getElementById("date1").onmouseover=function(){
+
+var array=["02mp3","10mp3","11mp3","18mp3","12mp3","06mp3","07mp3"]
+$("svg").hide();
+for(var i=0;i<array.length;i++){
+$("#"+array[i]).show();	
+}
+var height=$("#divall").prop("scrollHeight")/3*0
+$("html").animate({scrollTop:height},500);
+this.setAttribute("style","box-shadow: #999 0px 0px 20px 5px;")
+document.getElementById("date2").setAttribute("style","")
+document.getElementById("date3").setAttribute("style","")
+}
+
+document.getElementById("date2").onmouseover=function(){
+var array=["15mp3","16mp3","08mp3","01mp3","13mp3"]
+$("svg").hide();
+for(var i=0;i<array.length;i++){
+$("#"+array[i]).show();	
+}
+var height=$("#divall").prop("scrollHeight")/3*1+120
+$("html").animate({scrollTop:height},500);
+
+
+this.setAttribute("style","box-shadow: #999 0px 0px 20px 5px;")
+document.getElementById("date1").setAttribute("style","")
+document.getElementById("date3").setAttribute("style","")
+}
+
+document.getElementById("date3").onmouseover=function(){
+var array=["03mp3","09mp3","14mp3","04mp3","05mp3","17mp3"]
+$("svg").hide();
+for(var i=0;i<array.length;i++){
+$("#"+array[i]).show();	
+}
+var height=$("#divall").prop("scrollHeight")/3*3
+$("html").animate({scrollTop:height},500);
+this.setAttribute("style","box-shadow: #999 0px 0px 20px 5px;")
+document.getElementById("date1").setAttribute("style","")
+document.getElementById("date2").setAttribute("style","")
+}
+
 window.onresize=function(){
 	resize()
 }
