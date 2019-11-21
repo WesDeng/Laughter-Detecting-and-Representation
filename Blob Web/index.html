@@ -7,6 +7,11 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	-moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 }
 .tu{
     height: 97px;
@@ -73,16 +78,17 @@ html, body {
 	margin-left: 10px;
 }
 
+
 </style>
 
 </head>
-<body οndragstart="return false">
+<body οndragstart="return false" style="height: 0;">
 	<script src="js/d3.v5.min.js"></script> 
 	<script src="js/jquery.min.js"></script> 
 	<script src="js/painterEnergyOptimized.js"></script>
     
    <div class="operation">
-     <div id="op_color" style="position:fixed;z-index: 101; background-color: #fff; width: 870px; padding-top: 50px; padding-bottom: 10px;"> 
+     <div id="op_color" style="position:fixed;z-index: 101; width: 870px; padding-top: 50px; padding-bottom: 10px;"> 
 	  <span class="pink active2" data-value="pink"></span>
 	  <span class="orange active2" data-value="orange"></span> 
 	  <span class="green active2" data-value="green"></span>
@@ -142,8 +148,6 @@ html, body {
 			
 			
 	    $('.tu').mousedown(function(e){
-            // e.pageX
-			//$("svg").remove()
             var positionDiv = $(this).offset();
             var distenceX = e.pageX - positionDiv.left;
             var distenceY = e.pageY - positionDiv.top;
@@ -154,6 +158,7 @@ html, body {
 			currenti=$(this).index();
 			bb=true;
             $(document).mousemove(function(e){
+				if(bb){
                 var x = e.pageX -oldx
                 var y = e.pageY-oldy
                 if(x<0){
@@ -169,18 +174,19 @@ html, body {
                 $('#drag').css({
                     'left':x+'px',
                     'top':y+'px'
-                });
+				});
+			}
             });
             $(document).mouseup(function(e){
+				if(bb){
                 $(document).off('mousemove');
 				$('#drag').hide();
 				$('#drag').css({
                     'left':'-100px',
                     'top':'-100px'
-                });
-				if(bb){
+                });	
 				bb=false;
-			//	$("svg").remove()		
+				//$("svg").remove()		
 				startDraw(e.pageX,e.pageY,tarray[currenti],darray[currenti])
 				}
             });
@@ -245,6 +251,10 @@ ele.onclick=function(){
  
 }
 }
+
+
+
+
 
 	</script>
     

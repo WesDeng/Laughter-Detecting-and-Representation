@@ -7,6 +7,10 @@ var duration = 0;
 var energy = 2;
 var tag = 0;
 var imageI=0;
+var currentsvg="";
+var svgcc=false;
+var oldxx=0;
+var oldyy=0;
 
 // Equation for converting duration value to "fuzziness" value
 var variance = duration * (7.380165 + (12.03611 - 7.380165)/(1 + Math.pow(duration/5.366602),6.773093));
@@ -21,7 +25,9 @@ var opacity = energy*12;
 function drawPolygon(n, x, y, duration) {
   var i;
   radius = 37.79609 + (25.54558 - 37.79609)/(1 + Math.pow((duration/2.382118),3.282129));
-
+  
+ 
+  
   // if (duration > 4){
   
   // } else {
@@ -33,7 +39,8 @@ function drawPolygon(n, x, y, duration) {
   // upperVariance = 35.66281 + (7.18025 - 35.66281)/(1 + Math.pow((variance/14.43395),2.403932));
   var polygonData = []
   for(i = 0; i < n; i++){
-      var entry = {"x": x + 0 +  radius * Math.cos(2 * Math.PI * i / n), "y": y + 0 + (radius * Math.sin(2 * Math.PI * i / n)), "variance": d3.randomUniform(2, variance)()};
+     // var entry = {"x": x + 0 +  radius * Math.cos(2 * Math.PI * i / n), "y": y + 0 + (radius * Math.sin(2 * Math.PI * i / n)), "variance": d3.randomUniform(2, variance)()};
+       var entry = {"x": variance*5, "y": variance*5, "variance": variance};
       polygonData.push(entry);
   }
 
@@ -48,7 +55,8 @@ function findMidpoint(x1, x2, y1, y2, variance){
   newX = d3.randomNormal(newX, variance)();
   var newY = ((y2 - y1)/2) + y1;
   newY = d3.randomNormal(newY, variance)();
-  var newEntry = {'x': newX, 'y': newY, 'variance': variance-d3.randomUniform(0.05, 0.1)()};
+ // var newEntry = {'x': newX, 'y': newY, 'variance': variance-d3.randomUniform(0.05, 0.1)()};
+  var newEntry = {'x': newX, 'y': newY, 'variance': variance*0.8};
   return newEntry;
 }
 
@@ -138,10 +146,76 @@ var drawPath =
 // Create the svg container with a given width and size
 var svgContainer = d3.select("body")
       .append("svg")
-      .attr("width", "100%")
+      .attr("width", variance*10)
+      .attr("height", variance*10)
       .style("position", "absolute")
-	  .style("z-index", "0")
-      .attr("height", "100%");
+      .style("left", xx-variance*5)
+      .style("top", yy-variance*5)
+	    .style("z-index", "0")
+      .attr("id","svg"+$('#drag img').attr("src").split("/")[1].split(".")[0])
+      .attr("sound", $('#drag img').attr("src").split("/")[1].split(".")[0]);
+
+
+      $("svg").mouseenter(function(){
+        $("audio").attr("src","audio/"+$(this).attr("sound")+".mp3")
+        $("audio")[0].play();    
+        })
+
+        $('svg').mousedown(function(e){
+   var positionDiv = $(this).offset();
+    currentsvg=$(this).attr("id");
+    svgcc=true;
+    oldxx=$(this).width()/2
+    oldyy=$(this).height()/2
+    
+    $(document).off('mousemove'); 
+          $(document).mousemove(function(e){
+            if(svgcc){             
+              $('#'+currentsvg).css({
+                  'left':(e.pageX -oldxx)+'px',
+                  'top':(e.pageY -oldyy )+'px',
+              });   
+            }      
+          });     
+          $(document).mouseup(function(e){
+              $(document).off('mousemove');
+              svgcc=false
+          });
+      });
+       
+       
+        
+     
+/*
+    //是否拖动
+var bb_tuodong=false;
+//鼠标在上次的位置
+var oldx_tuodong=0;
+var oldy_tuodong=0;
+//深度，让点击按钮显示在最顶层
+var index=0;
+//当前拖动的按钮
+var currentmc_tuodong;
+document.addEventListener("mousemove",mousemove_tuodong)
+document.addEventListener("mouseup",mouseup_tuodong);
+function mousedown_tuodong(e){
+ 
+	bb_tuodong=true;
+	currentmc_tuodong=e.target;
+	oldx_tuodong=e.clientX-parseInt(currentmc_tuodong.style.left);
+  oldy_tuodong=e.clientY-parseInt(currentmc_tuodong.style.top);
+  document.title=$("#svg1").css("left")+":"+$("#svg1").css("top");
+}
+function mouseup_tuodong(e){
+	bb_tuodong=false;
+}
+function mousemove_tuodong(e){
+	if(bb_tuodong){
+	currentmc_tuodong.style.left=(e.clientX-oldx_tuodong)+"px";
+	currentmc_tuodong.style.top=(e.clientY-oldy_tuodong)+"px";
+	}
+}
+*/
 
 
 var defs = svgContainer.append('defs');
