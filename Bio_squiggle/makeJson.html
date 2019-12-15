@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Laughter Visualizer</title>
+<style>
+html, body {
+  background-color: #FFFFFF;
+}
+svg{
+	background-color: #ff0000;
+	cursor:move;
+}
+</style>
+</head>
+<body>
+<audio id="audioElement" src="" type="audio/wav"></audio>
+
+<p>
+  <textarea cols="20" rows="10" id="biao1" style="width:190px">用户定义的代码区域</textarea>
+</p>
+<form name="form1" method="post" action="">
+  <p>
+    <label for="textfield">声</label>
+    <input name="textfield" type="text" id="textfield" value="19.mp3">
+  </p>
+  <p>
+    <label for="textfield2">宽</label>
+    <input name="textfield2" type="text" id="textfield2" value="220">
+  </p>
+  <p>
+    <label for="textfield3">高</label>
+    <input name="textfield3" type="text" id="textfield3" value="200">
+  </p>
+  <p>
+    <label for="textfield4">色</label>
+    <select name="colorbox" id="textfield4" style="width:173px; height:21px;">
+     <option value ="green">green</option>
+     <option value ="orange">orange</option>
+     <option value="blue">blue</option>
+     <option value="pink">pink</option>
+    </select>
+  </p>
+</form>
+
+<div><button onclick="startplay()" style="width:196px">Make Points &#9658;</button></div>
+<p>
+  <input type="button" onClick="copyUrl2()" value="点击复制代码"  style="width:193px"/>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="jquery.min.js"></script>
+</p>
+<script>
+
+var audio = document.querySelector('#audioElement');
+var audioCtx = new (window.AudioContext || window.webkitAudioContext ||  window.webAudioContext)();
+var audioSrc = audioCtx.createMediaElementSource(audio);
+var analyser = audioCtx.createAnalyser();
+audioSrc.connect(analyser);
+audioSrc.connect(audioCtx.destination);
+analyser.connect(audioCtx.destination);
+var bufferSize = analyser.frequencyBinCount;
+var frequencyData = new Uint8Array(bufferSize);
+analyser.getByteFrequencyData(frequencyData);
+
+var svgHeight; 
+var svgWidth;
+var color;
+var colorArr;
+function makejson(s,w,h,c){
+svgHeight=h;
+svgWidth=w;
+color=c;
+	if(color=="pink"){
+		colorArr=["#fff4fc", "#890066"]
+	}
+	if(color=="blue"){
+		colorArr=["#eff4ff", "#002c9b"]
+	}
+	if(color=="green"){
+		colorArr=["#f2fff4", "#007519"]
+	}
+	if(color=="orange"){
+		colorArr=["#fff9ef", "#c47900"]
+	}
+document.getElementById("audioElement").src="audio/"+s;
+}
+
+///////////////生成json设置函数///////////////////
+makejson("18.mp3",220,200,"green")
+///////////////////////////////////////////////
+
+function startplay(){
+	document.getElementById("audioElement").src="audio/"+document.getElementById("textfield").value
+	svgWidth=Number(document.getElementById("textfield2").value)
+	svgHeight=Number(document.getElementById("textfield3").value)
+	color=document.getElementById("textfield4").value
+	if(color=="pink"){
+		colorArr=["#fff4fc", "#890066"]
+	}
+	if(color=="blue"){
+		colorArr=["#eff4ff", "#002c9b"]
+	}
+	if(color=="green"){
+		colorArr=["#f2fff4", "#007519"]
+	}
+	if(color=="orange"){
+		colorArr=["#fff9ef", "#c47900"]
+	}
+	
+	var svg1 = document.getElementById("svg1");
+	svg1.setAttribute("width",svgWidth)
+	svg1.setAttribute("height",svgHeight)
+  
+	var audio1=document.querySelector('#audioElement');
+	audio1.currentTime = 0;
+	makePoints(0,0)
+}
+
+var svg = d3.select('body').append('svg')
+  .attr('width', svgWidth)
+  .attr('id',"svg1")
+  .attr('style','position: absolute; left: 360px; top: 50px;')
+  .attr('height', svgHeight);
+
+function AverageFrequency(frequencyData) {
+  var totalVolume = getTotalVolume(frequencyData);
+  var weightedSum = 0;
+  for(var i = 0; i < frequencyData.length; i++) {
+    weightedSum += (i * (frequencyData[i]/totalVolume));
+  }
+  return weightedSum;
+}
+
+function getTotalVolume(frequencyData) {
+  var totalVol = 0;
+  for(var i = 0; i < frequencyData.length; i++) {
+    totalVol += frequencyData[i];
+  }
+  return totalVol;
+}
+
+function AverageVolume(frequencyData) {
+  var averageVol = 0;
+  for(var i = 0; i < frequencyData.length; i++) {
+    averageVol += frequencyData[i];
+  }
+  return averageVol/frequencyData.length;
+}
+
+var strokeDictionary = [];
+var tt
+function makePoints(p1, p2) {
+if(p1==0){
+	strokeDictionary=[];
+	p2=0
+	window.clearTimeout(tt);
+	while(document.getElementsByTagName("circle").length>0){
+		var obj=document.getElementsByTagName("circle").item(0);
+		obj.parentNode.removeChild(obj);
+	}
+	document.querySelector('#audioElement').play();	
+}
+  analyser.getByteFrequencyData(frequencyData);
+    var colorScale = d3.scaleLinear()
+    .domain([0, 1000])
+	
+   //pink
+    // .range(["#fff4fc", "#890066"]);
+    //blue
+    // .range(["#eff4ff", "#002c9b"]);
+    //green
+     .range(colorArr);
+    //orange
+   // .range(["#fff9ef", "#c47900"]);
+	
+    tt=setTimeout(function(){
+    if (AverageVolume(frequencyData) == 0) {
+      if (strokeDictionary[p1-2] != null){
+        var blob = new Blob([JSON.stringify(strokeDictionary)], {type: "text/plain;charset=utf-8"});  
+		goto1();
+        return;
+      } else {
+        makePoints(p1, p2);
+      }
+    }
+
+    else{
+      var r = (AverageVolume(frequencyData)/3)/2
+      var cx = p1;
+      var cy = (svgHeight - AverageFrequency(frequencyData)/1.5/1);
+      var fill = colorScale(AverageVolume(frequencyData)*12);
+      var circle = svg.append('circle')
+      .attr('r', function() { return  r;})
+      .attr('cx', function() { return cx+5; })
+      .attr('cy', function() { return cy; })
+	  .attr('class',"s1")
+      .attr('fill', function() { return fill; });
+      var dict = {
+        "r": r,
+        "cx": cx,
+        "cy": cy,
+        "fill": fill
+      };
+    strokeDictionary.push(dict);	
+    makePoints(p1+1, p2+1);
+    }
+  }, 7);
+}
+
+function goto1(){
+	var json="[";
+    for(var i=0;i<document.getElementsByClassName("s1").length;i++){
+	var ele=document.getElementsByClassName("s1").item(i)
+	ele.onmouseover=function(){startplay()}
+	json+="{'r':"+ele.getAttribute('r')+",'cx':"+ele.getAttribute('cx')+",'cy':"+ele.getAttribute('cy')+",'fill':'"+ele.getAttribute('fill')+"'},"
+   }
+   var s=document.getElementById("audioElement").getAttribute("src");
+   s=s.slice(6).replace(".","");
+   json+="{'left':'"+document.getElementById("svg1").style.left+"','top':'"+document.getElementById("svg1").style.top+"','width':"+svgWidth+",'height':"+svgHeight+",'color':'"+color+"','s':'"+s+"'}]"
+
+json=json.replace(/'/g,"\"")
+document.getElementById("biao1").value=json;
+}
+
+
+//是否拖动
+var bb_tuodong=false;
+//鼠标在上次的位置
+var oldx_tuodong=0;
+var oldy_tuodong=0;
+//深度，让点击按钮显示在最顶层
+var index=0;
+//当前拖动的按钮
+var currentmc_tuodong;
+document.getElementById("svg1").addEventListener("mousedown",mousedown_tuodong)
+document.addEventListener("mousemove",mousemove_tuodong)
+document.addEventListener("mouseup",mouseup_tuodong);
+function mousedown_tuodong(e){
+	bb_tuodong=true;
+	currentmc_tuodong=e.target;
+	oldx_tuodong=e.clientX-parseInt(currentmc_tuodong.style.left);
+	oldy_tuodong=e.clientY-parseInt(currentmc_tuodong.style.top);
+}
+function mouseup_tuodong(e){
+	bb_tuodong=false;
+}
+function mousemove_tuodong(e){
+	if(bb_tuodong){
+	currentmc_tuodong.style.left=(e.clientX-oldx_tuodong)+"px";
+	currentmc_tuodong.style.top=(e.clientY-oldy_tuodong)+"px";
+	}
+}
+function copyUrl2()
+{
+var Url2=document.getElementById("biao1");
+Url2.select(); // 选择对象
+document.execCommand("Copy"); // 执行浏览器复制命令
+}
+
+</script>
+</body>
+</html>

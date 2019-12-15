@@ -1,0 +1,776 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Laughter Visualizer</title>
+<style>
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	position:absolute;
+
+
+}
+svg {
+	cursor: move;
+}
+.operation {
+	
+	font-size: 0;
+	/*justify-content: center;*/
+}
+#op_date span {
+	display: inline-block;
+	padding: 0 5px;
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	/*border: 1px solid #929292;*/
+	cursor: pointer;
+	font-weight:normal;
+}
+#op_date .active {
+	/*background: #929292;*/
+	font-weight:bold;
+}
+#op_color span {
+	display: inline-block;
+	padding: 5px;
+	font-size: 14px;
+	width: 39.3px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+.pink {
+	background: rgb(137,0,102);
+	color: #fff;
+	opacity: .3;
+	border:rgb(37, 37, 37) solid 2px;
+}
+.orange {
+	background: rgb(196,121,0);
+	color: #fff;
+	opacity: .3;
+	border:rgb(37, 37, 37) solid 2px;
+}
+.green {
+	background: rgb(0,117,25);
+	color: #fff;
+	opacity: .3;
+	border:rgb(37, 37, 37) solid 2px;
+}
+#op_color .active2 {
+	opacity: .6;
+}
+#op_color{
+	margin-left: 170px;
+}
+#op_date{
+	margin-left: 300px;
+}
+#date1{
+    background-color:#fff;
+	width:150px; 
+	height:75px;
+	
+
+}
+#date2{
+    background-color:#fff;
+	width:150px; 
+	height:55px;
+
+}
+#date3{
+	background-color:#fff;
+	width:150px; 
+	height:64px;	
+}
+#date4{
+	background-color:#fff;
+	width:150px; 
+	height:64px;	
+}
+#date5{
+	background-color:#fff;
+	width:150px; 
+	height:64px;
+	margin-top: 60px;
+}
+#date6{
+	background-color:#fff;
+	width:150px; 
+	height:64px;
+}
+#date7{
+	background-color:#fff;
+	width:150px; 
+	height:64px;
+}
+
+</style>
+</head>
+<body>
+
+
+	<div id="divall" style="margin:0 auto; position:absolute;left:160px;">
+
+		<div id="bodyright" style="border:#ccc 0px solid; position:absolute; width:900px; height:4450px; left:900px; box-shadow: #999 0px 0px 20px 5px; "></div>
+		<div id="bodyleft" style="position:absolute;width:835px; height:940px;"></div>
+		</div>
+		
+		<div style="position:fixed; margin:0px 10px 10px 10px;top:0px; z-index:100;height:100%; border-right:1px solid #666;">
+			<div class="operation">
+		
+			 <div id="op_color" style="position:fixed;z-index: 101; background-color: #fff; width: 160px; padding-bottom: 10px; margin-left: -10px;"> 
+			  <span class="pink active2" data-value="pink"></span>
+			  <span class="orange active2" data-value="orange"></span> 
+			  <span class="green active2" data-value="green"></span>
+			 </div>
+		
+			 <!--div id="op_date" style="display:none"> 
+				<span class="active" data-value="1">6/15/19</span> 
+				<span class="active" data-value="2">6/30/19</span> 
+				<span class="active" data-value="3">8/12/19</span>
+			</div-->
+		</div>
+        
+        
+<div style="" id="date5" class="divdate">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/09</div>
+<div style="float:left; width:75px">
+<div style="width:35.25px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:14.95px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:27.55px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:60.15px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:90px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+</div>
+</div>
+
+<div style="" id="date4">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/10</div>
+<div style="float:left; width:75px">
+
+</div>
+</div>
+
+<div style="" id="date6" class="divdate">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/11</div>
+<div style="float:left; width:75px">
+<div style="width:26.95px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:29.45px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:70.5px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:45.2px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:23.25px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+</div>
+</div>
+
+<div style="" id="date7" class="divdate">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/12</div>
+<div style="float:left; width:75px">
+<div style="width:44.4px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:43.55px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:71.35px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:45.65px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+</div>
+</div>
+
+<div style="" id="date4">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/13</div>
+<div style="float:left; width:75px">
+
+</div>
+</div>
+
+
+<div style="" id="date1" class="divdate">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/14</div>
+<div style="float:left; width:75px">
+<div style="width:23.9px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:15.85px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:11.95px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:48.3px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:17.8px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:11.35px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:14.8px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+</div>
+</div>
+
+
+
+<div style="" id="date2" class="divdate">
+
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/15</div>
+<div style="float:left; width:75px">
+<div style="width:29px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:89.25px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:26.45px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:23.6px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:48.15px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+</div>
+
+</div>
+<div style="" id="date3" class="divdate">
+<div style="float:left; width:50px;padding-left:5px; font-family:sans-serif; font-size: 5px;">12/16</div>
+<div style="float:left; width:75px">
+<div style="width:15.85px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:19px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:10.75px; height:5px; background-color:#D8A8D0; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:6.4px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:17.5px; height:5px; background-color:#E5BF80; margin-top:5px; margin-bottom:5px"></div>
+<div style="width:88.95px; height:5px; background-color:#339143; margin-top:5px; margin-bottom:5px"></div>
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+<audio id="audioElement" src="audio/02.mp3" type="audio/wav"></audio>
+<script src="https://d3js.org/d3.v5.min.js"></script> 
+<script src="jquery.min.js"></script> 
+<script>
+var curTime = [1,2,3]
+var curColor = ['green', 'orange', 'pink']
+spanClick();
+function spanClick(){
+for(var i=0;i<document.getElementsByTagName("span").length;i++){
+var s=document.getElementsByTagName("span").item(i).getAttribute("data-value")
+var ele=document.getElementsByTagName("span").item(i);
+if(s=="1"||s=="2"||s=="3"){
+ele.onclick=function(){
+	 var date = Number($(this).data('value'))
+    var className = $(this).prop("className")
+    if (className == 'active') {
+      $(this).removeClass('active')
+	   curTime.remove(date)
+    } else {
+      $(this).addClass('active')
+	   curTime.push(date)
+    }
+	switchData()
+}
+}
+if(s=="pink"||s=="orange"||s=="green"){
+	
+ele.onclick=function(){
+    var currentArray=[];
+	 var color = $(this).data('value')
+	 if(color=="green"){
+		 currentArray=greenArray
+	 }
+	 if(color=="orange"){
+		 currentArray=orangeArray
+	 }
+	 if(color=="pink"){
+		 currentArray=pinkArray
+	 }
+    var className = $(this).prop("className")
+    if (className.indexOf('active2')>-1) {
+      $(this).removeClass('active2')
+      curColor.remove(color)
+	  for(var k=0;k<currentArray.length;k++){
+		$("#"+currentArray[k]+"mp3").hide()
+		console.log("#"+currentArray[k]+"mp3")
+	  }
+    } else {
+      $(this).addClass('active2')
+      curColor.push(color)
+	  for(var k=0;k<currentArray.length;k++){
+		$("#"+currentArray[k]+"mp3").show()
+		console.log("#"+currentArray[k]+"mp3")
+	  }
+    }
+	//switchData()
+  }
+ }
+ 
+}
+}
+  Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+      this.splice(index, 1);
+    }
+  };
+  function switchData(){
+	  var arr1=[];
+	  var arr2=[];
+	  var arr3=[];
+	  for(var i=0;i<curTime.length;i++){
+		  if(curTime[i]==1){
+			 //'01', '04', '05', '06', '12'
+			 arr1.push(1);arr1.push(4);arr1.push(5);arr1.push(6);arr1.push(12)
+		  }
+		  if(curTime[i]==2){
+			//'07' , '08', '09', '10', '13', '14', '15' 
+			 arr1.push(7);arr1.push(8);arr1.push(9);arr1.push(10);arr1.push(13);arr1.push(14); arr1.push(15);
+		  }
+		  if(curTime[i]==3){
+			// '02' , '03', '11', '16', '17', '18' 
+		   	 arr1.push(2); arr1.push(3);arr1.push(11);arr1.push(16);arr1.push(17);arr1.push(18); 
+		  }
+	  }
+	   for(var i=0;i<curColor.length;i++){
+		  if(curColor[i]=="pink"){
+			// '11' , '12', '13', '14', '15' ,"22" ,"26","29","32"
+			 arr2.push(11);arr2.push(12);arr2.push(13);arr2.push(14);arr2.push(15); arr2.push(22); arr2.push(26);arr2.push(29);arr2.push(32);
+		  }
+		  if(curColor[i]=="orange"){
+			//  '5' , '6', '7', '8', '9',"10","21","25","28","31"
+			arr2.push(5);arr2.push(6);arr2.push(7);arr2.push(8);arr2.push(9);arr2.push(10); arr2.push(21); arr2.push(25); arr2.push(28);arr2.push(31);
+		  }
+		  if(curColor[i]=="green"){
+			//  '1' , '2', '3', '4', '16',"17" ,"18","19","20","23","24","27","30"
+		  	 arr2.push(1);arr2.push(2);arr2.push(3);arr2.push(4);arr2.push(16);arr2.push(17); arr2.push(18); arr2.push(19); arr2.push(20); arr2.push(23);arr2.push(24);arr2.push(27);arr2.push(30);
+		  }
+	  }
+	  for(var i=0;i<arr1.length;i++){
+		  for(var j=0;j<arr2.length;j++){
+			  if(arr1[i]==arr2[j]){
+				arr3.push(arr1[i]);
+			  }
+		  }
+	  }
+	  for(var i=0;i<document.getElementsByTagName("svg").length;i++){
+		   document.getElementsByTagName("svg").item(i).style.display="none";
+	  }
+	  for(var i=0;i<arr3.length;i++){
+		    var id= soundArr[arr3[i]-1][0].replace(".","");
+			document.getElementById(id).style.display="block";
+	  }
+	  
+  }
+ 
+function startplay(){
+	goto1();
+	prevEle.push(musicpath);
+	var audio1=document.querySelector('#audioElement');
+	audio1.src="audio/"+musicpath;
+	audio1.currentTime = 0;
+	makePoints(0,0)
+}
+
+var colorArr;
+var svg;
+var svgHeight;
+var musicpath;
+var soundArr=[]; 
+var prevEle=[];
+var audio = document.querySelector('#audioElement');
+var audioCtx = new (window.AudioContext || window.webkitAudioContext ||  window.webAudioContext)();
+var audioSrc = audioCtx.createMediaElementSource(audio);
+var analyser = audioCtx.createAnalyser();
+audioSrc.connect(analyser);
+audioSrc.connect(audioCtx.destination);
+analyser.connect(audioCtx.destination);
+var bufferSize = analyser.frequencyBinCount;
+var frequencyData = new Uint8Array(bufferSize);
+analyser.getByteFrequencyData(frequencyData);
+
+function AverageFrequency(frequencyData) {
+  var totalVolume = getTotalVolume(frequencyData);
+  var weightedSum = 0;
+  for(var i = 0; i < frequencyData.length; i++) {
+    weightedSum += (i * (frequencyData[i]/totalVolume));
+  }
+  return weightedSum;
+}
+
+function getTotalVolume(frequencyData) {
+  var totalVol = 0;
+  for(var i = 0; i < frequencyData.length; i++) {
+    totalVol += frequencyData[i];
+  }
+  return totalVol;
+}
+
+function AverageVolume(frequencyData) {
+  var averageVol = 0;
+  for(var i = 0; i < frequencyData.length; i++) {
+    averageVol += frequencyData[i];
+  }
+  return averageVol/frequencyData.length;
+}
+
+var strokeDictionary = [];
+var tt
+function makePoints(p1, p2) {
+var c=musicpath.replace(".","")
+if(p1==0){
+	strokeDictionary=[];
+	p2=0
+	window.clearTimeout(tt);
+	while(document.getElementsByClassName(c).length>0){
+		var obj=document.getElementsByClassName(c).item(0);
+		obj.parentNode.removeChild(obj);
+	}
+	document.querySelector('#audioElement').play();	
+}
+  analyser.getByteFrequencyData(frequencyData);
+    var colorScale = d3.scaleLinear()
+    .domain([0, 1000])
+    .range(colorArr);
+    tt=setTimeout(function(){
+
+    if (AverageVolume(frequencyData) == 0) {
+      if (strokeDictionary[p1-2] != null){
+        var blob = new Blob([JSON.stringify(strokeDictionary)], {type: "text/plain;charset=utf-8"});  
+		goto1()
+        return;
+      } else {
+        makePoints(p1, p2);
+      }
+    }
+
+    else{
+      var r = AverageVolume(frequencyData)/3/2
+      var cx = p1;
+      var cy = svgHeight - AverageFrequency(frequencyData)/1.5/1;
+      var fill = colorScale(AverageVolume(frequencyData)*12);
+      var circle = svg.append('circle')
+      .attr('r', function() { return  r;})
+      .attr('cx', function() { return cx+5; })
+      .attr('cy', function() { return cy; })
+	  .attr('class',c)
+      .attr('fill', function() { return fill; });
+      var dict = {
+        "r": r,
+        "cx": cx,
+        "cy": cy,
+        "fill": fill
+      };
+
+    strokeDictionary.push(dict);	
+    makePoints(p1+1, p2+1);
+    }
+  }, 7);
+}
+
+function goto1(){
+for(var i=0;i<prevEle.length;i++){
+	for(var j=0;j<soundArr.length;j++){
+		if(prevEle[i]==soundArr[j][0]){
+			soundAll[j].drawling(soundArr[j])
+		}
+	}
+}
+prevEle=[];
+}
+
+//是否拖动
+var bb_tuodong=false;
+//鼠标在上次的位置
+var oldx_tuodong=0;
+var oldy_tuodong=0;
+//深度，让点击按钮显示在最顶层
+var index=0;
+//当前拖动的按钮
+var currentmc_tuodong;
+document.addEventListener("mousemove",mousemove_tuodong)
+document.addEventListener("mouseup",mouseup_tuodong);
+function mousedown_tuodong(e){
+	bb_tuodong=true;
+	currentmc_tuodong=e.target;
+	oldx_tuodong=e.clientX-parseInt(currentmc_tuodong.style.left);
+	oldy_tuodong=e.clientY-parseInt(currentmc_tuodong.style.top);
+}
+function mouseup_tuodong(e){
+	bb_tuodong=false;
+}
+function mousemove_tuodong(e){
+	if(bb_tuodong){
+	currentmc_tuodong.style.left=(e.clientX-oldx_tuodong)+"px";
+	currentmc_tuodong.style.top=(e.clientY-oldy_tuodong)+"px";
+	}
+}
+
+function makeSound(jsonPath){
+this.svgHeight=170; 
+this.svgWidth=190;
+this.color="green";
+this.colorArr;
+this.left;
+this.top;
+this.classname;
+this.init=function(){
+$.getJSON("json/"+jsonPath+"",function(data){    
+var html = '';    
+$.each(data,function(i,item){    
+if(item['r']!=undefined){
+html+="<circle "+" r='"+item['r']+"' cx='"+item['cx']+"' cy='"+item['cy']+"' fill='"+item['fill']+"' "+"class='s1'"+"></circle>"	
+}
+else{
+	if(item['color']=="pink"){
+		this.colorArr=["#fff4fc", "#890066"]
+	}
+	if(item['color']=="blue"){
+		this.colorArr=["#eff4ff", "#002c9b"]
+	}
+	if(item['color']=="green"){
+		this.colorArr=["#f2fff4", "#007519"]
+	}
+	if(item['color']=="orange"){
+		this.colorArr=["#fff9ef", "#c47900"]
+	}
+	this.svgWidth=item['width']+"px"
+	this.svgHeight=item['height']+"px"
+	
+	this.left=item['left']
+	this.top=item['top']
+	this.classname=item['s']
+	
+   var svg1 = d3.select('#bodyleft').append('svg')
+  .attr('width', this.svgWidth)
+  .attr('id',this.classname)
+  .attr('style',"position: absolute; left: "+this.left+"; top: "+this.top+";")
+  .attr('height', this.svgHeight);	
+  html=html.replace(/s1/g,this.classname)
+ 
+  document.getElementById(this.classname).addEventListener("mousedown",mousedown_tuodong)
+  
+  document.getElementById(this.classname).innerHTML=html;
+  var h=this.svgHeight;
+  h=Number(h.replace("px",""));
+  var c=this.colorArr;
+  var m=this.classname.slice(0,this.classname.length-3)+"."+this.classname.slice(this.classname.length-3);
+  soundArr.push([m,c,svg1,h,html,true])
+   for(var i=0;i<document.getElementsByClassName(this.classname).length;i++){
+	var ele=document.getElementsByClassName(this.classname).item(i)
+	ele.onmouseover=function(){
+		if(bb_tuodong==false){
+		colorArr=c;
+		svg=svg1;
+		svgHeight=h;
+		musicpath=m;
+		startplay()
+		}
+		}
+   }
+   
+}
+});  
+
+
+}); 
+
+	}
+	
+this.drawling=function(arr){
+  var h=arr[3]
+  var svg1=arr[2]
+  var c=arr[1]
+  var m=arr[0]
+  var classname=m.replace(".","");
+  if(document.getElementById(classname).innerHTML==arr[4]){
+	  return;
+  }
+  document.getElementById(classname).innerHTML=arr[4]
+	
+   for(var i=0;i<document.getElementsByClassName(classname).length;i++){
+	var ele=document.getElementsByClassName(classname).item(i)
+	ele.onmouseover=function(){
+		if(bb_tuodong==false){
+		colorArr=c;
+		svg=svg1;
+		svgHeight=h;
+		musicpath=m;
+		startplay()
+		}
+		}
+   }
+	
+}
+
+}
+
+///////////////要把对应的声音加上来/////////////////////////
+var pinkArray=['11','12','13','14','15','22','26','29','32']
+var orangeArray=['05','06','07','08','09','10','21','25','28','31'] 		
+var greenArray=['01','02','03','04','16','17','18','19','20','23','24','27','30']
+//////////////////////////////////////////////////////////
+///////////////////有多少声音就加声明多少下面这种//////////////
+var soundAll=[];
+var sound1=new makeSound("1.json");
+sound1.init();
+soundAll.push(sound1);
+
+var sound2=new makeSound("2.json");
+sound2.init();
+soundAll.push(sound2);
+
+var sound3=new makeSound("3.json");
+sound3.init();
+soundAll.push(sound3);
+
+var sound4=new makeSound("4.json");
+sound4.init();
+soundAll.push(sound4);
+
+var sound5=new makeSound("5.json");
+sound5.init();
+soundAll.push(sound5);
+
+var sound6=new makeSound("6.json");
+sound6.init();
+soundAll.push(sound6);
+
+var sound7=new makeSound("7.json");
+sound7.init();
+soundAll.push(sound7);
+
+var sound8=new makeSound("8.json");
+sound8.init();
+soundAll.push(sound8);
+
+var sound9=new makeSound("9.json");
+sound9.init();
+soundAll.push(sound9);
+
+var sound10=new makeSound("10.json");
+sound10.init();
+soundAll.push(sound10);
+
+var sound11=new makeSound("11.json");
+sound11.init();
+soundAll.push(sound11);
+
+var sound12=new makeSound("12.json");
+sound12.init();
+soundAll.push(sound12);
+
+var sound13=new makeSound("13.json");
+sound13.init();
+soundAll.push(sound13);
+
+var sound14=new makeSound("14.json");
+sound14.init();
+soundAll.push(sound14);
+
+var sound15=new makeSound("15.json");
+sound15.init();
+soundAll.push(sound15);
+
+var sound16=new makeSound("16.json");
+sound16.init();
+soundAll.push(sound16);
+
+var sound17=new makeSound("17.json");
+sound17.init();
+soundAll.push(sound17);
+
+
+var sound18=new makeSound("18.json");
+sound18.init();
+soundAll.push(sound18);
+
+var sound19=new makeSound("19.json");
+sound19.init();
+soundAll.push(sound19);
+
+var sound20=new makeSound("20.json");
+sound20.init();
+soundAll.push(sound20);
+
+var sound21=new makeSound("21.json");
+sound21.init();
+soundAll.push(sound21);
+
+var sound22=new makeSound("22.json");
+sound22.init();
+soundAll.push(sound22);
+
+var sound23=new makeSound("23.json");
+sound23.init();
+soundAll.push(sound23);
+
+var sound24=new makeSound("24.json");
+sound24.init();
+soundAll.push(sound24);
+
+var sound25=new makeSound("25.json");
+sound25.init();
+soundAll.push(sound25);
+
+var sound26=new makeSound("26.json");
+sound26.init();
+soundAll.push(sound26);
+
+var sound27=new makeSound("27.json");
+sound27.init();
+soundAll.push(sound27);
+
+var sound28=new makeSound("28.json");
+sound28.init();
+soundAll.push(sound28);
+
+var sound29=new makeSound("29.json");
+sound29.init();
+soundAll.push(sound29);
+
+var sound30=new makeSound("30.json");
+sound30.init();
+soundAll.push(sound30);
+
+var sound31=new makeSound("31.json");
+sound31.init();
+soundAll.push(sound31);
+
+var sound32=new makeSound("32.json");
+sound32.init();
+soundAll.push(sound32);
+
+//滚动条的位置，要自己不断测试才知道的
+document.getElementById("date5").onmouseover=function(){
+//修改这个值，就跳转到对应的位置，其中$("#divall").prop("scrollHeight") 是总高度的意思
+var height=$("#divall").prop("scrollHeight")/6*0
+$("html").animate({scrollTop:height},0);
+$(".divdate").attr("style","")
+this.setAttribute("style","background-color:#ddd;")
+}
+
+document.getElementById("date6").onmouseover=function(){
+var height=$("#divall").prop("scrollHeight")/6*1+60
+$("html").animate({scrollTop:height},0);
+$(".divdate").attr("style","")
+this.setAttribute("style","background-color:#ddd")
+}
+
+document.getElementById("date7").onmouseover=function(){
+var height=$("#divall").prop("scrollHeight")/6*2+80
+$("html").animate({scrollTop:height},0);
+$(".divdate").attr("style","")
+this.setAttribute("style","background-color:#ddd")
+}
+
+document.getElementById("date1").onmouseover=function(){
+var height=$("#divall").prop("scrollHeight")/6*3+110
+$("html").animate({scrollTop:height},0);
+$(".divdate").attr("style","")
+this.setAttribute("style","background-color:#ddd")
+}
+
+document.getElementById("date2").onmouseover=function(){
+var height=$("#divall").prop("scrollHeight")/6*4+130
+$("html").animate({scrollTop:height},0);
+$(".divdate").attr("style","")
+this.setAttribute("style","background-color:#ddd")
+}
+
+document.getElementById("date3").onmouseover=function(){
+var height=$("#divall").prop("scrollHeight")/6*5
+$("html").animate({scrollTop:height},0);
+$(".divdate").attr("style","")
+this.setAttribute("style","background-color:#ddd")
+}
+       
+</script>
+</body>
+</html>
