@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <!--Upper Left Part-->
+      <div class="left_top_box">
+          <div class="Feature1">
+              Feature1:
+              <span v-for="(item,index) in list" @click="clickBtn_X(item.id)">
+                <span class="radio" :class="{ isActive:isChange_x == item.id}"></span>{{item.name}}
+              </span>
+          </div>
+          <div class="Feature2">
+              Feature2:
+              <span v-for="(item,index) in list" @click="clickBtn_Y(item.id)">
+                <span class="radio" :class="{ isActive:isChange_y == item.id}"></span>{{item.name}}
+              </span>
+          </div>
+          <span class="postClick" @click="draw">Draw it</span>
+      </div>
+      <div class="move_area" id="move_area">
+        <div v-show="isShow">
+            <img id="img1" src="images/01.png" />
+            <img id="img2" src="images/02.png" />
+            <img id="img3" src="images/03.png" />
+            <img id="img4" src="images/04.png" />
+            <img id="img5" src="images/05.png" />
+            <img id="img6" src="images/06.png" />
+            <img id="img7" src="images/07.png" />
+            <img id="img8" src="images/08.png" />
+            <!-- <img id="img9" src="images/09.png" /> -->
+            <img id="img10" src="images/10.png" />
+            <img id="img11" src="images/11.png" />
+            <img id="img12" src="images/12.png" />
+            <img id="img13" src="images/13.png" />
+            <img id="img14" src="images/14.png" />
+            <img id="img15" src="images/15.png" />
+        </div>
+      </div>
+      <audio id="audio1" src="images/01.wav" autoplay="autoplay"></audio>
+      <audio id="audio2" src="images/02.wav" autoplay="autoplay"></audio>
+      <audio id="audio3" src="images/03.wav" autoplay="autoplay"></audio>
+      <audio id="audio4" src="images/04.wav" autoplay="autoplay"></audio>
+      <audio id="audio5" src="images/05.wav" autoplay="autoplay"></audio>
+      <audio id="audio6" src="images/06.wav" autoplay="autoplay"></audio>
+      <audio id="audio7" src="images/07.wav" autoplay="autoplay"></audio>
+      <audio id="audio8" src="images/08.wav" autoplay="autoplay"></audio>
+      <!-- <audio id="audio9" src="images/09.wav" autoplay="autoplay"></audio> -->
+      <audio id="audio10" src="images/10.wav" autoplay="autoplay"></audio>
+      <audio id="audio11" src="images/11.wav" autoplay="autoplay"></audio>
+      <audio id="audio12" src="images/12.wav" autoplay="autoplay"></audio>
+      <audio id="audio13" src="images/13.wav" autoplay="autoplay"></audio>
+      <audio id="audio14" src="images/14.wav" autoplay="autoplay"></audio>
+      <audio id="audio15" src="images/15.wav" autoplay="autoplay"></audio>
+
+      <!-- Lower Left-->
+      <div class="left_bottom_box">
+
+      </div>
+    </div>
+    <script src="js/index.js"></script>
+<body>
+<style>
+</style>
+</html>

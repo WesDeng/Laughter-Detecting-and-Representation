@@ -1,0 +1,70 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.postClick{
+  margin-top: 20px;
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  background: transparent;
+  outline: none;
+  text-align: center;
+  font-size: 15px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.postClick:hover{
+  border: 2px solid #FAC5C0;
+  background: #FAC5C0;
+  color: #FFF;
+}
+#app{
+  height: 100%;
+}
+/* .left_top_box{
+  /* position: fixed;
+  padding: 10px;
+  top: 10px;
+  left: 10px;
+  width: 340px;
+  border: 1px solid #000;
+} */
+.radio{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border: 1px solid #999;
+}
+.isActive{
+  background: #FAC5C0;
+  border: 1px solid #000;
+}
+.Feature1{
+  margin-bottom: 20px;
+}
+.left_bottom_box{
+  /* position: fixed;
+  bottom: 10px;
+  left: 10px; */
+  width: 80px;
+  height: 80px;
+  border: 1px solid #000;
+}
+.move_area{
+  height: 600px;
+  width: 1000px;
+  position: relative;
+}
+.move_area img{
+  position: absolute;
+  cursor: pointer;
+}

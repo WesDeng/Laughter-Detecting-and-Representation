@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>d3</title>
+<style>
+html, body{
+  margin: 0;
+  padding: 0;
+}
+body,html{height:100%;}
+.container{
+  position: relative;
+  background: #fff;
+  height: 100%;
+  display: flex;
+}
+.ctn_left{
+  height: 100%;
+  z-index: 1000;
+  position: relative;
+}
+
+.move_wrapper{
+  position: fixed;
+  left: 0;
+  top: 0;
+  float: left;
+  right: 0;
+  width: 70%;
+  height: 500px;
+  z-index: 1000;
+  background: #F8F8F8;
+  box-shadow: -1px 5px 5px 5px #ccc;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+	visibility: hidden;
+}
+.delete_wrapper{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: 80px;
+  border: 1px dashed #ddd;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+}
+.operation{
+  display: flex;
+  align-items: center;
+  width: 600px;
+  height: 60px;
+  font-size: 0;
+  justify-content: center;
+}
+#op_date span{
+  display: inline-block;
+  padding: 0 5px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  border: 1px solid #929292;
+  cursor: pointer;
+}
+#op_date .active{
+  background: #929292;
+}
+#area_draw{
+  min-height: 100%;
+  margin: 0 50px;
+  padding-bottom: 100px;
+}
+.drag{display:inline-block; width:400px;height:200px;cursor:move;transform-origin: 10px 10px;opacity: .3;}
+
+#op_color span{
+  display: inline-block;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.pink{background: rgb(137,0,102);color: #fff;opacity: .3}
+.orange{background: rgb(196,121,0);color: #fff;opacity: .3}
+.green{background: rgb(0,117,25);color: #fff;opacity: .3}
+.blue{background: rgb(65, 105, 225);color: #fff;opacity: .3}
+#op_color .active2{
+  opacity: .6;
+}
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="ctn_left">
+        <audio id="audioElement01" controls preload hidden src="audio/01.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement02" controls preload hidden src="audio/02.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement03" controls preload hidden src="audio/03.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement04" controls preload hidden src="audio/04.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement05" controls preload hidden src="audio/05.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement06" controls preload hidden src="audio/06.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement07" controls preload hidden src="audio/07.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement08" controls preload hidden src="audio/08.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement09" controls preload hidden src="audio/09.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement10" controls preload hidden src="audio/10.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement11" controls preload hidden src="audio/11.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement12" controls preload hidden src="audio/12.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement13" controls preload hidden src="audio/13.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement14" controls preload hidden src="audio/14.mp3" type="audio/mp3"></audio>
+        <audio id="audioElement15" controls preload hidden src="audio/15.mp3" type="audio/mp3"></audio>
+        <div class="operation">
+          <div style="margin-right:50px;" id="op_date">
+            <span class="active" data-value="1">8/23/18</span>
+            <span class="active" data-value="2">8/26/18</span>
+            <span class="active" data-value="3">9/6/18</span>
+          </div>
+          <div id="op_color">
+            <span class="pink active2" data-value="pink"></span>
+            <span class="orange active2" data-value="orange"></span>
+            <span class="green active2" data-value="green"></span>
+            <span class="blue active2" data-value="blue"></span>
+          </div>
+        </div>
+        <div id="area_draw"></div>
+    </div>
+    <div class="ctn_right">
+      <div class="move_wrapper" id="div1"><span id="txt1" style="position: absolute;text-align:center;top:35px;">Laughter Collage</span></div>
+      <div class="delete_wrapper" id="div2">Drag to delete</div>
+    </div>
+  </div>
+
+<script src="d3.v5.min.js" charset="utf-8"></script>
+<script src="jquery.min.js"></script>
+<script src="jquery-ui.js"></script>
+<script src="draw.js"></script>
+<script>
+  var curTime = [1,2,3]
+  var curColor = ['green', 'orange', 'pink', 'blue']
+  window.allData = ['green01','blue02','pink03','pink04','pink05','green06','pink07','orange08','blue09','blue10','pink11','orange12','pink13','pink14','green15']
+  window.remove = []
+
+  // Select function for the date and colors.
+  function switchData() {
+    for (let i = 0,len=curTime.length;i<len;i++) {
+      if (curTime[i] == 1) {
+        for(let j = 0, len = curColor.length;j<len;j++) {
+          ['02', '13', '14', '15'].forEach(item => {
+            if (window.allData.includes(curColor[j]+item)) {
+              setTimeout(() => {
+                plotStatically(50, -600, curColor[j], item)
+              }, 500);
+            }
+          })
+        }
+      } else if(curTime[i] == 2) {
+        for(let j = 0, len = curColor.length;j<len;j++) {
+          [ '09', '10'].forEach(item => {
+            if (window.allData.includes(curColor[j]+item)) {
+              setTimeout(() => {
+                plotStatically(50, -600, curColor[j], item)
+              }, 500);
+            }
+          })
+        }
+      } else if(curTime[i] == 3) {
+        for(let j = 0, len = curColor.length;j<len;j++) {
+          ['01' , '03', '04', '05','06','07','08','11','12'].forEach(item => {
+            if (window.allData.includes(curColor[j]+item)) {
+              setTimeout(() => {
+                if (item == '17') {
+                  plotStatically(50, -550, curColor[j], item)
+                } else if (item=='18'){
+                  plotStatically(50, -550, curColor[j], item)
+                } else {
+                  plotStatically(50, -600, curColor[j], item)
+                }
+              }, 500);
+            }
+          })
+        }
+      }
+    }
+  }
+
+  Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+      this.splice(index, 1);
+    }
+  };
+
+window.onload = function() {
+  switchData()
+  $('#op_date span').on('click',function(){
+    $('#area_draw .drag').each(function() {
+      if (!$(this).data('drag')) {
+        $(this).remove()
+      }
+    })
+    var date = Number($(this).data('value'))
+    var className = $(this).prop("className")
+    if (className == 'active') {
+      $(this).removeClass('active')
+      curTime.remove(date)
+    } else {
+      $(this).addClass('active')
+      curTime.push(date)
+    }
+    switchData()
+  })
+  $('#op_color span').on('click',function(){
+    $('#area_draw .drag').each(function() {
+      if (!$(this).data('drag')) {
+        $(this).remove()
+      }
+    })
+    var color = $(this).data('value')
+    var className = $(this).prop("className")
+    if (className.indexOf('active2')>-1) {
+      $(this).removeClass('active2')
+      curColor.remove(color)
+    } else {
+      $(this).addClass('active2')
+      curColor.push(color)
+    }
+    switchData()
+  })
+}
+
+// Add the expand-collapse canvas.
+var musicarr=[];
+document.getElementById("div1").style.top=(window.innerHeight-80)+"px";
+document.getElementById("div1").style.visibility="visible";
+document.getElementById("div1").addEventListener("mouseover",over);
+document.getElementById("div1").addEventListener("mouseout",out);
+function over(e){
+musicarr=[]
+document.getElementById("div1").style.top=(window.innerHeight-500)+"px";
+  for(var i=0;i<document.getElementsByClassName("drag ui-draggable ui-draggable-handle").length;i++){
+		if(document.getElementsByClassName("drag ui-draggable ui-draggable-handle").item(i).style.position=="fixed"){
+			document.getElementsByClassName("drag ui-draggable ui-draggable-handle").item(i).style.display="block";
+			musicarr.push(document.getElementsByClassName("drag ui-draggable ui-draggable-handle").item(i).id)
+		}
+   }
+  document.getElementById("txt1").style.top=(250)+"px";
+}
+function out(e){
+document.getElementById("div1").style.top=(window.innerHeight-80)+"px";
+	for(var i=0;i<document.getElementsByClassName("drag ui-draggable ui-draggable-handle").length;i++){
+		if(document.getElementsByClassName("drag ui-draggable ui-draggable-handle").item(i).style.position=="fixed"){
+			document.getElementsByClassName("drag ui-draggable ui-draggable-handle").item(i).style.display="none";
+		}
+	}
+ document.getElementById("txt1").style.top=(40)+"px";
+}
+
+
+
+</script>
+</body>
+</html>
