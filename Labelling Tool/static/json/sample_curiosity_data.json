@@ -1,0 +1,11 @@
+{
+    "task": {
+        "feedback": "none",
+        "visualization": "spectrogram",
+        "proximityTag": [],
+        "annotationTag": ["Laughter"],
+        "url": "/static/wav/paris.wav",
+        "tutorialVideoURL":"https://www.youtube.com/embed/Bg8-83heFRM",
+        "alwaysShowTags": true
+    }
+}

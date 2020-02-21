@@ -1,0 +1,11 @@
+{
+    "task": {
+        "feedback": "none",
+        "visualization": "spectrogram",
+        "proximityTag": [],
+        "annotationTag": ["Laughter"],
+        "url": "/static/wav/spectrogram_demo_doorknock_mono.wav",
+        "tutorialVideoURL":"https://www.youtube.com/embed/Bg8-83heFRM",
+        "alwaysShowTags": true
+    }
+}
